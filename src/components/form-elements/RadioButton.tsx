@@ -6,9 +6,11 @@ interface IRadioButtonOptions {
   label: string;
   value: string;
 }
+
 interface IRadioButtonProps {
   label: string;
   options: IRadioButtonOptions[];
+  onChange: (value: string) => void;
 }
 
 export default function RadioButton(props: IRadioButtonProps) {
@@ -16,6 +18,7 @@ export default function RadioButton(props: IRadioButtonProps) {
 
   const handleRadioChange = (value: string) => {
     setSelectedValue(value);
+    props.onChange(value);
   };
 
   return (

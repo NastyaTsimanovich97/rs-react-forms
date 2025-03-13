@@ -64,3 +64,13 @@ label {
   background-color: #51ba55;
   font-size: 1rem;
 }
+
+.user-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.user-img {
+  width: 30rem;
+}

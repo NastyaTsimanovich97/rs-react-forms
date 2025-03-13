@@ -1,13 +1,14 @@
-import { useEffect, useState } from 'react';
+import { RefObject, useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import {
-  ICountry,
-  selectCountries,
-  setCountries,
-} from '../../app/countriesSlice';
+import { selectCountries, setCountries } from '../../app/countriesSlice';
+import { ICountry } from '../../app/store';
 
-const CountryAutocomplete = () => {
+interface ICountryAutocompleteProps {
+  ref: RefObject<HTMLInputElement | null>;
+}
+
+const CountryAutocomplete = (props: ICountryAutocompleteProps) => {
   const dispatch = useDispatch();
   const countries = useSelector(selectCountries);
 
@@ -52,6 +53,7 @@ const CountryAutocomplete = () => {
         onChange={(e) => setInputValue(e.target.value)}
         onFocus={() => setDropdownVisible(true)}
         placeholder="Start enter a country"
+        ref={props.ref}
       />
       {isDropdownVisible && (
         <ul>

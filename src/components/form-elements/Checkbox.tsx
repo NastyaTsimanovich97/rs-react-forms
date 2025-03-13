@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { RefObject, useState } from 'react';
 
 interface ICheckboxProps {
   id: string;
   name: string;
   label: string;
+  ref: RefObject<HTMLInputElement | null>;
 }
 
 export default function Checkbox(props: ICheckboxProps) {
@@ -21,6 +22,7 @@ export default function Checkbox(props: ICheckboxProps) {
         id={props.id}
         checked={checked}
         onChange={() => handleChange(checked)}
+        ref={props.ref}
       />
       <label htmlFor={props.id}>{props.label}</label>
     </div>

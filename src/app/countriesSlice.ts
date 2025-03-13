@@ -1,19 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface ICountry {
-  name: { common: string };
-  cca2: string;
-}
-
-export interface IState {
-  countries: ICountry[];
-}
+import { IState } from './store';
 
 const countriesSlice = createSlice({
   name: 'countries',
   initialState: [],
   reducers: {
-    setCountries: (state, action) => {
+    setCountries: (_state, action) => {
       return action.payload;
     },
   },
