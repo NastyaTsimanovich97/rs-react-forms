@@ -26,6 +26,7 @@ export default function Uploader(props: IUploaderProps) {
     <div>
       <label htmlFor="file">{props.label}</label>
       <input
+        className={props.error ? 'error-input' : ''}
         ref={props.ref}
         type="file"
         name={props.name}

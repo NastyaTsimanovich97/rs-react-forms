@@ -49,6 +49,11 @@ label {
 
 .radio-btn-group {
   display: flex;
+  margin-bottom: 1rem;
+}
+
+.radio-btn-group-error {
+  margin-bottom: 0;
 }
 
 .checkbox-item {
@@ -63,6 +68,10 @@ label {
   cursor: pointer;
   background-color: #51ba55;
   font-size: 1rem;
+}
+
+.error-input {
+  margin-bottom: 0;
 }
 
 .user-wrapper {
@@ -83,4 +92,7 @@ label {
 .error-text {
   font-size: 0.7rem;
   color: #fa4040;
+  height: 1rem;
+  padding: 0px;
+  margin: 0;
 }

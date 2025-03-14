@@ -12,7 +12,13 @@ export default function TextInput(props: ITextInputProps) {
   return (
     <div>
       <label htmlFor={props.id}>{props.label}</label>
-      <input ref={props.ref} type="text" name={props.name} id={props.id} />
+      <input
+        className={props.error ? 'error-input' : ''}
+        ref={props.ref}
+        type="text"
+        name={props.name}
+        id={props.id}
+      />
       {props.error && <p className="error-text">{props.error}</p>}
     </div>
   );

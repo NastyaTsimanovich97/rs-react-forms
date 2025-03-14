@@ -42,6 +42,7 @@ export default function UncontrolledForm() {
   const [errors, setErrors] = useState<{ [key: string]: string | null }>(
     DEFAULT_ERRORS
   );
+  const [isErrors, setIsErrors] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -67,6 +68,7 @@ export default function UncontrolledForm() {
 
       setErrors(DEFAULT_ERRORS);
       setSubmitted(true);
+      setIsErrors(false);
     } catch (error) {
       const validationErrors: { [key: string]: string } = {};
 
@@ -78,6 +80,7 @@ export default function UncontrolledForm() {
 
       setErrors(validationErrors);
       setSubmitted(false);
+      setIsErrors(true);
     }
   };
 
@@ -148,7 +151,7 @@ export default function UncontrolledForm() {
         error={errors.file}
       />
       <CountryAutocomplete ref={countryRef} />
-      <SubmitButton />
+      <SubmitButton disabled={isErrors} />
     </form>
   );
 }

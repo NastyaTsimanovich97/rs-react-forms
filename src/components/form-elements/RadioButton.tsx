@@ -25,7 +25,9 @@ export default function RadioButton(props: IRadioButtonProps) {
   return (
     <div>
       <label>{props.label}</label>
-      <div className="radio-btn-group">
+      <div
+        className={`radio-btn-group ${props.error && 'radio-btn-group-error'}`}
+      >
         {props.options.map((item) => {
           return (
             <div key={item.id} className="radio-btn-item">
