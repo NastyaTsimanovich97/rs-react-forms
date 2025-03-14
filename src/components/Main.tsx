@@ -22,7 +22,10 @@ export default function Main() {
         </h2>
       </section>
       {!!userDataForm1.length && (
-        <UserData label="User Data. Form 1" data={userDataForm1} />
+        <UserData
+          label="User Data. Form 1. Uncontrolled components"
+          data={userDataForm1}
+        />
       )}
     </>
   );

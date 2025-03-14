@@ -71,6 +71,11 @@ label {
   align-items: start;
 }
 
+.new-user-data-wrapper {
+  border: 5px solid #51ba55;
+  padding: 0.5rem;
+}
+
 .user-img {
   width: 30rem;
 }

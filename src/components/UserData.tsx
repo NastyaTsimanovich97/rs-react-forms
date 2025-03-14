@@ -10,7 +10,10 @@ export default function UserData({ data, label }: IUserDataProps) {
     <section className="user-wrapper">
       <h2>{label}</h2>
       {data.map((item, index) => (
-        <div className="user-wrapper" key={`${label}-${index}`}>
+        <div
+          className={`user-wrapper ${index === data.length - 1 && 'new-user-data-wrapper'}`}
+          key={`${label}-${index}`}
+        >
           <h3>Tile {index + 1}</h3>
           <p>
             <b>Name:</b> {item.name}
