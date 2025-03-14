@@ -74,3 +74,8 @@ label {
 .user-img {
   width: 30rem;
 }
+
+.error-text {
+  font-size: 0.7rem;
+  color: #fa4040;
+}

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Navigate } from 'react-router';
+import { ValidationError } from 'yup';
 
 import Checkbox from './form-elements/Checkbox';
 import CountryAutocomplete from './form-elements/CountryAutocomplete';
@@ -13,6 +14,17 @@ import TextInput from './form-elements/TextInput';
 import Uploader from './form-elements/Uploader';
 
 import { setUserData } from '../app/userDataSlice';
+import { userSchema } from '../schemas/user';
+
+const DEFAULT_ERRORS = {
+  name: null,
+  age: null,
+  email: null,
+  password: null,
+  repeatPassword: null,
+  gender: null,
+  file: null,
+};
 
 export default function UncontrolledForm() {
   const nameRef = useRef<HTMLInputElement | null>(null);
@@ -27,13 +39,18 @@ export default function UncontrolledForm() {
   const [gender, setGender] = useState<string>();
   const [base64String, setBase64String] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<{ [key: string]: string | null }>(
+    DEFAULT_ERRORS
+  );
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     const userData = {
       name: nameRef.current?.value,
-      age: ageRef.current?.value,
+      age: Number(ageRef.current?.value),
       email: emailRef.current?.value,
       password: passwordRef.current?.value,
       repeatPassword: repeatPasswordRef.current?.value,
@@ -43,11 +60,25 @@ export default function UncontrolledForm() {
       gender,
     };
 
-    dispatch(setUserData(userData));
+    try {
+      await userSchema.validate(userData, { abortEarly: false });
 
-    setSubmitted(true);
+      dispatch(setUserData(userData));
 
-    event.preventDefault();
+      setErrors(DEFAULT_ERRORS);
+      setSubmitted(true);
+    } catch (error) {
+      const validationErrors: { [key: string]: string } = {};
+
+      (error as unknown as ValidationError).inner.forEach((err) => {
+        if (err?.path) {
+          validationErrors[err.path] = err.message;
+        }
+      });
+
+      setErrors(validationErrors);
+      setSubmitted(false);
+    }
   };
 
   if (submitted) {
@@ -61,25 +92,35 @@ export default function UncontrolledForm() {
         label="Name"
         name="name"
         id="uncontrolled-name"
+        error={errors.name}
       />
-      <NumberInput ref={ageRef} label="Age" name="age" id="uncontrolled-age" />
+      <NumberInput
+        ref={ageRef}
+        label="Age"
+        name="age"
+        id="uncontrolled-age"
+        error={errors.age}
+      />
       <EmailInput
         ref={emailRef}
         label="Email"
         name="email"
         id="uncontrolled-email"
+        error={errors.email}
       />
       <Password
         ref={passwordRef}
         label="Password"
         name="pasword"
         id="uncontrolled-pasword"
+        error={errors.password}
       />
       <Password
         ref={repeatPasswordRef}
         label="Repeat Password"
         name="repeat-pasword"
         id="uncontrolled-repeat-pasword"
+        error={errors.repeatPassword}
       />
       <RadioButton
         label="Gender"
@@ -89,6 +130,7 @@ export default function UncontrolledForm() {
           { id: 'o', name: 'other', value: 'other', label: 'Other' },
         ]}
         onChange={(value) => setGender(value)}
+        error={errors.gender}
       />
       <label>Conditions</label>
       <Checkbox
@@ -103,6 +145,7 @@ export default function UncontrolledForm() {
         name="file"
         id="uncontrolled-file"
         handleUpload={setBase64String}
+        error={errors.file}
       />
       <CountryAutocomplete ref={countryRef} />
       <SubmitButton />

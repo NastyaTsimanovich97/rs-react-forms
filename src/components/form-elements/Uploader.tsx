@@ -6,6 +6,7 @@ interface IUploaderProps {
   label: string;
   ref: RefObject<HTMLInputElement | null>;
   handleUpload: (data: string) => void;
+  error: string | null;
 }
 
 export default function Uploader(props: IUploaderProps) {
@@ -31,6 +32,7 @@ export default function Uploader(props: IUploaderProps) {
         id={props.id}
         onChange={handleChange}
       />
+      {props.error && <p className="error-text">{props.error}</p>}
     </div>
   );
 }

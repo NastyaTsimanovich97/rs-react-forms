@@ -11,6 +11,7 @@ interface IRadioButtonProps {
   label: string;
   options: IRadioButtonOptions[];
   onChange: (value: string) => void;
+  error: string | null;
 }
 
 export default function RadioButton(props: IRadioButtonProps) {
@@ -41,6 +42,7 @@ export default function RadioButton(props: IRadioButtonProps) {
           );
         })}
       </div>
+      {props.error && <p className="error-text">{props.error}</p>}
     </div>
   );
 }
