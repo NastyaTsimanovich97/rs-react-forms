@@ -3,7 +3,7 @@ import { User } from '../../schemas/user';
 
 interface ITextInputProps {
   id: string;
-  name: keyof User;
+  name: 'name';
   label: string;
   control: Control<User>;
   error?: FieldError;

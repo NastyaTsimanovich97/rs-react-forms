@@ -3,7 +3,7 @@ import { User } from '../../schemas/user';
 
 interface IEmailInputProps {
   id: string;
-  name: keyof User;
+  name: 'email';
   control: Control<User>;
   label: string;
   error?: FieldError;

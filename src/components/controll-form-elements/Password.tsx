@@ -4,7 +4,7 @@ import { User } from '../../schemas/user';
 interface IPasswordProps {
   id: string;
   label: string;
-  name: keyof User;
+  name: 'password' | 'repeatPassword';
   control: Control<User>;
   error?: FieldError;
 }

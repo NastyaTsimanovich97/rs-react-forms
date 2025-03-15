@@ -4,7 +4,7 @@ import { User } from '../../schemas/user';
 interface INumberInputProps {
   id: string;
   label: string;
-  name: keyof User;
+  name: 'age';
   control: Control<User>;
   error?: FieldError;
 }

@@ -3,7 +3,7 @@ import { User } from '../../schemas/user';
 
 interface ICheckboxProps {
   id: string;
-  name: keyof User;
+  name: 'tc';
   control: Control<User>;
   label: string;
   error?: FieldError;
@@ -18,7 +18,12 @@ export default function CheckboxControll(props: ICheckboxProps) {
         name={props.name}
         control={props.control}
         render={({ field }) => (
-          <input type="checkbox" id={props.id} {...field} />
+          <input
+            type="checkbox"
+            id={props.id}
+            {...field}
+            value={typeof field.value === 'string' ? field.value : ''}
+          />
         )}
       />
       <label htmlFor={props.id}>{props.label}</label>
