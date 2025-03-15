@@ -1,17 +1,18 @@
 import { RefObject } from 'react';
+import { FieldError } from 'react-hook-form';
 
 interface IUploaderProps {
   id: string;
   name: string;
   label: string;
-  ref: RefObject<HTMLInputElement | null>;
+  ref?: RefObject<HTMLInputElement | null>;
   handleUpload: (data: string) => void;
-  error: string | null;
+  error?: string | null;
 }
 
 export default function Uploader(props: IUploaderProps) {
   const handleChange = () => {
-    const file = props.ref.current?.files?.[0];
+    const file = props.ref?.current?.files?.[0];
 
     if (file) {
       const reader = new FileReader();
@@ -22,18 +23,21 @@ export default function Uploader(props: IUploaderProps) {
     }
   };
 
+  const errorMessage =
+    props.error || (props.error as unknown as FieldError)?.message;
+
   return (
     <div>
       <label htmlFor="file">{props.label}</label>
       <input
-        className={props.error ? 'error-input' : ''}
+        className={errorMessage ? 'error-input' : ''}
         ref={props.ref}
         type="file"
         name={props.name}
         id={props.id}
         onChange={handleChange}
       />
-      {props.error && <p className="error-text">{props.error}</p>}
+      {errorMessage && <p className="error-text">{errorMessage as string}</p>}
     </div>
   );
 }

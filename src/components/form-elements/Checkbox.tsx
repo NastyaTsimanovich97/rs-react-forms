@@ -4,7 +4,7 @@ interface ICheckboxProps {
   id: string;
   name: string;
   label: string;
-  ref: RefObject<HTMLInputElement | null>;
+  ref?: RefObject<HTMLInputElement | null>;
 }
 
 export default function Checkbox(props: ICheckboxProps) {

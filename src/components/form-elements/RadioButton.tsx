@@ -11,7 +11,7 @@ interface IRadioButtonProps {
   label: string;
   options: IRadioButtonOptions[];
   onChange: (value: string) => void;
-  error: string | null;
+  error?: string | null;
 }
 
 export default function RadioButton(props: IRadioButtonProps) {
@@ -22,11 +22,13 @@ export default function RadioButton(props: IRadioButtonProps) {
     props.onChange(value);
   };
 
+  const errorMessage = props.error;
+
   return (
     <div>
       <label>{props.label}</label>
       <div
-        className={`radio-btn-group ${props.error && 'radio-btn-group-error'}`}
+        className={`radio-btn-group ${errorMessage && 'radio-btn-group-error'}`}
       >
         {props.options.map((item) => {
           return (
@@ -44,7 +46,7 @@ export default function RadioButton(props: IRadioButtonProps) {
           );
         })}
       </div>
-      {props.error && <p className="error-text">{props.error}</p>}
+      {errorMessage && <p className="error-text">{errorMessage as string}</p>}
     </div>
   );
 }

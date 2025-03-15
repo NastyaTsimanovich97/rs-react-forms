@@ -1,5 +1,5 @@
 interface ISubmitButtonProps {
-  disabled: boolean;
+  disabled?: boolean;
 }
 
 export default function SubmitButton({ disabled }: ISubmitButtonProps) {

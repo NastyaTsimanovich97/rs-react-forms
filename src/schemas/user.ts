@@ -1,4 +1,4 @@
-import { object, string, number, mixed, ref } from 'yup';
+import { object, string, number, ref, boolean, InferType } from 'yup';
 
 export const userSchema = object({
   name: string().required(),
@@ -11,12 +11,16 @@ export const userSchema = object({
     )
     .required(),
   repeatPassword: string()
-    .required()
-    .oneOf([ref('password')], 'passwords must match'),
-  gender: mixed().required().oneOf(['male', 'female', 'other']),
-  file: mixed()
+    .oneOf([ref('password')], 'passwords must match')
+    .required(),
+  gender: string().required().oneOf(['male', 'female', 'other']),
+  tc: boolean(),
+  country: string(),
+  file: string()
     .required()
     .test('fileSize', 'file size is too large (max 2MB)', (value) => {
+      if (!value) return false;
+
       const base64Data = (value as string).split(',')[1];
       const decodedData = atob(base64Data);
 
@@ -36,3 +40,5 @@ export const userSchema = object({
       }
     ),
 });
+
+export type User = InferType<typeof userSchema>;

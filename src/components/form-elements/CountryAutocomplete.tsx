@@ -5,7 +5,7 @@ import { selectCountries, setCountries } from '../../app/countriesSlice';
 import { ICountry } from '../../app/store';
 
 interface ICountryAutocompleteProps {
-  ref: RefObject<HTMLInputElement | null>;
+  ref?: RefObject<HTMLInputElement | null>;
 }
 
 const CountryAutocomplete = (props: ICountryAutocompleteProps) => {

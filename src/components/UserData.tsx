@@ -1,7 +1,8 @@
 import { IUserData } from '../app/store';
+import { User } from '../schemas/user';
 
 interface IUserDataProps {
-  data: IUserData[];
+  data: IUserData[] | User[];
   label: string;
 }
 

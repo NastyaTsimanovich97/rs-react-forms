@@ -5,6 +5,9 @@ import UserData from './UserData';
 
 export default function Main() {
   const userDataForm1 = useSelector((state: IState) => state.userData);
+  const userDataControll = useSelector(
+    (state: IState) => state.userDataControll
+  );
 
   return (
     <>
@@ -21,12 +24,20 @@ export default function Main() {
           </NavLink>
         </h2>
       </section>
-      {!!userDataForm1.length && (
-        <UserData
-          label="User Data. Form 1. Uncontrolled components"
-          data={userDataForm1}
-        />
-      )}
+      <section className="user-section-wrapper">
+        {!!userDataForm1.length && (
+          <UserData
+            label="User Data. Form 1. Uncontrolled components"
+            data={userDataForm1}
+          />
+        )}
+        {!!userDataControll.length && (
+          <UserData
+            label="User Data. Form 2. React Hook Form"
+            data={userDataControll}
+          />
+        )}
+      </section>
     </>
   );
 }

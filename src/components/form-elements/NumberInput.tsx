@@ -4,11 +4,13 @@ interface INumberInputProps {
   id: string;
   name: string;
   label: string;
-  ref: RefObject<HTMLInputElement | null>;
-  error: string | null;
+  ref?: RefObject<HTMLInputElement | null>;
+  error?: string | null;
 }
 
 export default function NumberInput(props: INumberInputProps) {
+  const errorMessage = props.error;
+
   return (
     <div>
       <label htmlFor={props.id}>{props.label}</label>
@@ -19,7 +21,7 @@ export default function NumberInput(props: INumberInputProps) {
         name={props.name}
         id={props.id}
       />
-      {props.error && <p className="error-text">{props.error}</p>}
+      {errorMessage && <p className="error-text">{errorMessage as string}</p>}
     </div>
   );
 }
