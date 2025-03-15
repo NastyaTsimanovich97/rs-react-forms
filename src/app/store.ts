@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import countriesReducer from './countriesSlice';
 import userDataReducer from './userDataSlice';
+import userDataControllReducer from './userDataControllSlice';
 import { User } from '../schemas/user';
 
 export interface ICountry {
@@ -30,6 +31,6 @@ export default configureStore({
   reducer: {
     countries: countriesReducer,
     userData: userDataReducer,
-    userDataControll: userDataReducer,
+    userDataControll: userDataControllReducer,
   },
 });

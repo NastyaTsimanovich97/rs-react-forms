@@ -14,7 +14,7 @@ import RadioButtonControll from './controll-form-elements/RadioButton';
 import CheckboxControll from './controll-form-elements/Checkbox';
 import UploaderControll from './controll-form-elements/Uploader';
 import CountryAutocompleteControll from './controll-form-elements/CountryAutocomplete';
-import { setUserDataControll } from '../app/userDataSliceControll';
+import { setUserDataControll } from '../app/userDataControllSlice';
 
 export default function HookForm() {
   const {
@@ -112,7 +112,9 @@ export default function HookForm() {
         error={errors.file as FieldError}
       />
       <CountryAutocompleteControll control={control} name="country" />
-      <SubmitButton />
+      <SubmitButton
+        disabled={!!Object.values(errors).find((item) => item !== null)}
+      />
     </form>
   );
 }

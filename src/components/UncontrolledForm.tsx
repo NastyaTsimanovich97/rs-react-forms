@@ -46,10 +46,8 @@ export default function UncontrolledForm() {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const userData = {
+  const getUserData = () => {
+    return {
       name: nameRef.current?.value,
       age: Number(ageRef.current?.value),
       email: emailRef.current?.value,
@@ -60,6 +58,12 @@ export default function UncontrolledForm() {
       country: countryRef.current?.value,
       gender,
     };
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const userData = getUserData();
 
     try {
       await userSchema.validate(userData, { abortEarly: false });
@@ -80,6 +84,31 @@ export default function UncontrolledForm() {
 
       setErrors(validationErrors);
       setSubmitted(false);
+      setIsErrors(true);
+    }
+  };
+
+  const handleValidation = async (
+    event: React.FormEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    const userData = getUserData();
+
+    try {
+      await userSchema.validate(userData, { abortEarly: false });
+
+      setErrors(DEFAULT_ERRORS);
+      setIsErrors(false);
+    } catch (error) {
+      const validationErrors: { [key: string]: string } = {};
+
+      (error as unknown as ValidationError).inner.forEach((err) => {
+        if (err?.path) {
+          validationErrors[err.path] = err.message;
+        }
+      });
+
+      setErrors(validationErrors);
       setIsErrors(true);
     }
   };
@@ -152,6 +181,7 @@ export default function UncontrolledForm() {
       />
       <CountryAutocomplete ref={countryRef} />
       <SubmitButton disabled={isErrors} />
+      <button onClick={handleValidation}>Validate</button>
     </form>
   );
 }
